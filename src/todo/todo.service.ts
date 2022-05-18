@@ -26,25 +26,19 @@ export class TodoService {
 
   public async create(createTodoDto: CreateTodoDto) {
     const newTodo = instanceToPlain(createTodoDto) as Todo
-    const saveResult = this.todoRepository.save(newTodo)
-    console.log(`todoService.create returns ${saveResult}`)
-    return saveResult
+    return this.todoRepository.save(newTodo)
   }
 
   public async update(id: string, updateTodoDto: UpdateTodoDto) {
     const updateResult = await this.todoRepository.update(id, updateTodoDto)
-
     if (!updateResult) {
       throw new NotFoundException(`Todo #${id} not found`)
     }
-    console.log(`todoService.update returns ${updateResult}`)
-
     return updateResult
   }
 
   public async delete(id: string) {
     const deleteResult = await this.todoRepository.delete(id)
-    console.log(`todoService.delete returns ${deleteResult}`)
     return deleteResult
   }
 }
