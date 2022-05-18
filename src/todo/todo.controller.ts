@@ -20,13 +20,13 @@ export class TodoController {
 
   @Get()
   public async getAll(@Res() res) {
-    const todos = this.todoService.findAll()
+    const todos = await this.todoService.findAll()
     return res.status(HttpStatus.OK).json(todos)
   }
 
   @Get(':id')
   public async getOne(@Res() res, @Param('id') id: number) {
-    const todo = this.todoService.findOne(id)
+    const todo = await this.todoService.findOne(id)
     if (!todo) {
       throw new NotFoundException('Todo does not exist!')
     }
@@ -61,7 +61,7 @@ export class TodoController {
       }
       return res.status(HttpStatus.OK).json({
         message: 'Todo has been successfully updated',
-        todo: todo,
+        todo,
       })
     } catch (err) {
       return res.status(HttpStatus.BAD_REQUEST).json({
@@ -82,7 +82,7 @@ export class TodoController {
     }
     return res.status(HttpStatus.OK).json({
       message: 'Todo has been deleted',
-      todo: todo,
+      todo,
     })
   }
 }
