@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
+import { TodoModule } from './todo/todo.module'
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
       synchronize: true,
       entities: ['dist/**/*.entity{.ts,.js}'],
     }),
+    TodoModule,
   ],
 })
 export class AppModule {}
