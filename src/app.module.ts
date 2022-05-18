@@ -13,6 +13,7 @@ import { TodoModule } from './todo/todo.module'
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       autoLoadEntities: true,
+      cache: true,
       synchronize: true,
       entities: ['dist/**/*.entity{.ts,.js}'],
     }),
