@@ -5,6 +5,9 @@ export class Todo {
   @PrimaryGeneratedColumn()
   id: number
 
+  @Column('integer', { unique: true })
+  position: number
+
   @Column('text')
   text: string
 
