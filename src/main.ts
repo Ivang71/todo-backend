@@ -7,8 +7,10 @@ import { AppModule } from './app.module'
 
 dotenv.config()
 
+const hostname = process.env.HOSTNAME || 'localhost'
+const port = process.env.PORT || 9000
+
 const bootstrap = async () => {
-  const port = process.env.PORT || 9000
   const nestOptions = { cors: true }
   const app = await NestFactory.create(AppModule, nestOptions)
 
@@ -23,7 +25,7 @@ const bootstrap = async () => {
   const document = SwaggerModule.createDocument(app, config)
   SwaggerModule.setup('/docs', app, document)
 
-  await app.listen(port, '0.0.0.0', () => console.log('server started'))
+  await app.listen(port, hostname, () => console.log('server started'))
 }
 
 bootstrap()
