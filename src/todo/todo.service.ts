@@ -1,4 +1,7 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import {
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { instanceToPlain } from 'class-transformer'
 import { Repository } from 'typeorm'
@@ -37,8 +40,7 @@ export class TodoService {
     return updateResult
   }
 
-  public async delete(id: string) {
-    const deleteResult = await this.todoRepository.delete(id)
-    return deleteResult
+  public async delete(ids: string | number[]) {
+    return this.todoRepository.delete(ids)
   }
 }

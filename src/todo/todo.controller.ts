@@ -11,6 +11,7 @@ import {
   Res,
 } from '@nestjs/common'
 import { CreateTodoDto } from './dto/create-todo.dto'
+import { DeleteTodosDto } from './dto/delete-todos.dto'
 import { UpdateTodoDto } from './dto/update-todo.dto'
 import { TodoService } from './todo.service'
 
@@ -39,11 +40,11 @@ export class TodoController {
       const todo = await this.todoService.create(createTodoDto)
       return res.status(HttpStatus.OK).json({
         message: 'Todo has been created successfully',
-        todo,
+        id: todo.id,
       })
     } catch (err) {
       return res.status(HttpStatus.BAD_REQUEST).json({
-        message: 'Error: Todo not created!',
+        message: err.detail || 'Error: Todo not created!',
       })
     }
   }
@@ -59,30 +60,22 @@ export class TodoController {
       if (!todo) {
         throw new NotFoundException('Todo does not exist!')
       }
-      return res.status(HttpStatus.OK).json({
-        message: 'Todo has been successfully updated',
-        todo,
-      })
+      return res.status(HttpStatus.OK)
     } catch (err) {
       return res.status(HttpStatus.BAD_REQUEST).json({
-        message: 'Error: Todo not updated!',
-        status: 400,
+        message: err.detail || 'Error: Todo not updated!',
       })
     }
   }
 
-  @Delete(':id')
-  public async delete(@Res() res, @Param('id') id: string) {
-    if (!id) {
-      throw new NotFoundException('Todo ID does not exist')
-    }
-    const todo = await this.todoService.delete(id)
-    if (!todo) {
-      throw new NotFoundException('Todo does not exist')
+  @Delete()
+  public async delete(@Res() res, @Body() deleteTodosDto: DeleteTodosDto) {
+    const deleteResult = await this.todoService.delete(deleteTodosDto.ids)
+    if (!deleteResult.affected) {
+      throw new NotFoundException('No todos were deleted')
     }
     return res.status(HttpStatus.OK).json({
-      message: 'Todo has been deleted',
-      todo,
+      message: 'Todos has been deleted',
     })
   }
 }
