@@ -9,8 +9,8 @@ dotenv.config()
 
 const bootstrap = async () => {
   const port = process.env.PORT || 9000
-  const options = { cors: true }
-  const app = await NestFactory.create(AppModule, options)
+  const nestOptions = { cors: true }
+  const app = await NestFactory.create(AppModule, nestOptions)
 
   app.useGlobalPipes(new ValidationPipe())
   app.use(cookieParser())
@@ -21,7 +21,7 @@ const bootstrap = async () => {
     .setVersion('0.0.1')
     .build()
   const document = SwaggerModule.createDocument(app, config)
-  SwaggerModule.setup('/api/docs', app, document)
+  SwaggerModule.setup('/docs', app, document)
 
   await app.listen(port, '0.0.0.0', () => console.log('server started'))
 }
