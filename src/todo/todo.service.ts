@@ -1,7 +1,4 @@
-import {
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common'
+import { Injectable, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { instanceToPlain } from 'class-transformer'
 import { Repository } from 'typeorm'
@@ -29,6 +26,7 @@ export class TodoService {
 
   public async create(createTodoDto: CreateTodoDto) {
     const newTodo = instanceToPlain(createTodoDto) as Todo
+    newTodo.createdAt = new Date()
     return this.todoRepository.save(newTodo)
   }
 

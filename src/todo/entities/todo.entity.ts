@@ -1,4 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm'
 
 @Entity()
 export class Todo {
@@ -13,6 +17,9 @@ export class Todo {
 
   @Column('boolean')
   completed: boolean
+
+  @Column('timestamptz')
+  createdAt: Date
 
   constructor(text: string, completed: boolean) {}
 }
