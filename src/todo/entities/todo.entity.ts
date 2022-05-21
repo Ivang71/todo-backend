@@ -4,7 +4,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm'
 
-@Entity()
+@Entity({ orderBy: { position: 'ASC' } })
 export class Todo {
   @PrimaryGeneratedColumn()
   id: number
