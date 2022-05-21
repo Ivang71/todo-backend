@@ -38,10 +38,7 @@ export class TodoController {
   public async add(@Res() res, @Body() createTodoDto: CreateTodoDto) {
     try {
       const todo = await this.todoService.create(createTodoDto)
-      return res.status(HttpStatus.OK).json({
-        message: 'Todo has been created successfully',
-        id: todo.id,
-      })
+      return res.status(HttpStatus.OK).json(todo)
     } catch (err) {
       return res.status(HttpStatus.BAD_REQUEST).json({
         message: err.detail || 'Error: Todo not created!',

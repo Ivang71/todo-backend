@@ -27,7 +27,8 @@ export class TodoService {
   public async create(createTodoDto: CreateTodoDto) {
     const newTodo = instanceToPlain(createTodoDto) as Todo
     newTodo.createdAt = new Date()
-    return this.todoRepository.save(newTodo)
+    await this.todoRepository.save(newTodo)
+    return newTodo
   }
 
   public async update(id: string, updateTodoDto: UpdateTodoDto) {
