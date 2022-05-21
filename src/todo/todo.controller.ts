@@ -57,7 +57,7 @@ export class TodoController {
       if (!todo) {
         throw new NotFoundException('Todo does not exist!')
       }
-      return res.status(HttpStatus.OK)
+      return res.status(HttpStatus.OK).json()
     } catch (err) {
       return res.status(HttpStatus.BAD_REQUEST).json({
         message: err.detail || 'Error: Todo not updated!',
